@@ -1,26 +1,25 @@
-# coding=utf-8
-"""Dibujo del cuadrado basico utilizando EBO (e indices) y clases, equivalente a ex_quad_pro"""
+# Coding=utf-8
+"""Dibujo de tablero de damas con sus piezas en posición inicial"""
 
+# Import de todo lo que se utilizará
 import glfw
 from OpenGL.GL import *
 import OpenGL.GL.shaders
 import numpy as np
+import numpy
 import grafica.easy_shaders as es
 import grafica.basic_shapes as bs
 from grafica.gpu_shape import GPUShape, SIZE_IN_BYTES
-from data import Q
 
 # We will use 32 bits data, so floats and integers have 4 bytes
 # 1 byte = 8 bits
 SIZE_IN_BYTES = 4
 
-
 # A class to store the application control
 class Controller:
     fillPolygon = True
 
-
-# we will use the global controller as communication with the callback function
+# We will use the global controller as communication with the callback function
 controller = Controller()
 
 
@@ -42,12 +41,11 @@ def on_key(window, key, scancode, action, mods):
 
 
 
+# Función que genera un fondo cuadrado de color blanco
 def createFondo():
-    # Defining locations and colors for each vertex of the shape
-    #####################################
     
     vertexData = np.array([
-    #   positions        colors
+    #   positions   colors
         -1, -1, 0,  1.0, 1.0, 1.0,
          1, -1, 0,  1.0, 1.0, 1.0,
          1,  1, 0,  1.0, 1.0, 1.0,
@@ -57,19 +55,19 @@ def createFondo():
 
     # Defining connections among vertices
     # We have a triangle every 3 indices specified
-    indices = np.array(
-        [0, 1, 2,
-         2, 3, 0], dtype= np.uint32)
+    indices = np.array([
+         0, 1, 2,
+         2, 3, 0
+         ], dtype= np.uint32)
 
     size = len(indices)
+    # Ocupamos clase Shape del archivo basic_shapes.py
     return bs.Shape(vertexData, indices)
 
 
-
+# Función que genera todos los cuadrados negros del tablero, usando cada una de sus posiciones
 def createQuads():
-        # Defining locations and colors for each vertex of the shape
-    #####################################
-    
+
     vertexData = np.array([
     #   positions          colors
     #   primera fila
@@ -155,7 +153,6 @@ def createQuads():
          1.0,  0.0,  0.0,  0.0, 0.0, 0.0,
          1.0,  0.25, 0.0,  0.0, 0.0, 0.0,
          0.75, 0.25, 0.0,  0.0, 0.0, 0.0,
-
 
     #   quinta fila
         -1.00, -0.25, 0.0,  0.0, 0.0, 0.0,
@@ -245,8 +242,7 @@ def createQuads():
 
     # Defining connections among vertices
     # We have a triangle every 3 indices specified
-    indices = np.array(
-        [
+    indices = np.array([ 
     #   primera fila
          0, 1, 2,
          2, 3, 0,
@@ -300,62 +296,107 @@ def createQuads():
          62, 63, 60,
 
     #   quinta fila
-         0, 1, 2,
-         2, 3, 0,
+         64, 65, 66,
+         66, 67, 64,
 
-         4, 5, 6,
-         6, 7, 4,
+         68, 69, 70,
+         70, 71, 68,
 
-         8, 9, 10,
-         10, 11, 8,
+         72, 73, 74,
+         74, 75, 72,
          
-         12, 13, 14,
-         14, 15, 12,
+         76, 77, 78,
+         78, 79, 76,
 
     #   sexta fila
-         0, 1, 2,
-         2, 3, 0,
+         80, 81, 82,
+         82, 83, 80,
 
-         4, 5, 6,
-         6, 7, 4,
+         84, 85, 86,
+         86, 87, 84,
 
-         8, 9, 10,
-         10, 11, 8,
+         88, 89, 90,
+         90, 91, 88,
          
-         12, 13, 14,
-         14, 15, 12,
+         92, 93, 94,
+         94, 95, 92,
 
     #   séptima fila
-         0, 1, 2,
-         2, 3, 0,
+         96, 97, 98,
+         98, 99, 96,
 
-         4, 5, 6,
-         6, 7, 4,
+         100, 101, 102,
+         102, 103, 100,
 
-         8, 9, 10,
-         10, 11, 8,
+         104, 105, 106,
+         106, 107, 104,
          
-         12, 13, 14,
-         14, 15, 12,
+         108, 109, 110,
+         110, 111, 108,
 
     #   octava fila
-         0, 1, 2,
-         2, 3, 0,
+         112, 113, 114,
+         114, 115, 112,
 
-         4, 5, 6,
-         6, 7, 4,
+         116, 117, 118,
+         118, 119, 116,
 
-         8, 9, 10,
-         10, 11, 8,
+         120, 121, 122,
+         122, 123, 120,
          
-         12, 13, 14,
-         14, 15, 12,
+         124, 125, 126,
+         126, 127, 124
 
          ], dtype= np.uint32)
 
     size = len(indices)
+    # Ocupamos clase Shape del archivo basic_shapes.py
     return bs.Shape(vertexData, indices)
     
+
+# Función que crea un arreglo con los vértices de un circulo
+def crear_dama(x,y,r,g,b,radius):
+    
+    circle = []
+    for angle in range(0,360,10):
+        circle.extend([x, y, 0.0, r, g, b])
+        circle.extend([x+numpy.cos(numpy.radians(angle))*radius, 
+                       y+numpy.sin(numpy.radians(angle))*radius, 
+                       0.0, r, g, b])
+        circle.extend([x+numpy.cos(numpy.radians(angle+10))*radius, 
+                       y+numpy.sin(numpy.radians(angle+10))*radius, 
+                       0.0, r, g, b])
+    return circle
+
+# Función que genera todas las damas en base a función "crear_dama"
+def createDamas():
+    A1 = [-0.875, -0.375, 0.125, 0.625]
+    A2 = [0.875, 0.375]
+    A3 = [-0.625, -0.125, 0.375, 0.875]
+    A4 = [-0.375, -0.875]
+    F = []
+
+    #para fila 1 y 3
+    for i in A1:
+        for j in A2:
+            F.extend(crear_dama(i, j, 1, 0, 0, 0.1))
+
+    #para fila 2
+    for i in A3:
+        F.extend(crear_dama(i, 0.625, 1, 0, 0, 0.1))
+    A4 = [-0.375, -0.875]
+
+    #para fila 6 y 8
+    for i in A3:
+        for j in A4:
+            F.extend(crear_dama(i, j, 0, 0, 1, 0.1))
+
+    #para fila 7
+    for i in A1:
+        F.extend(crear_dama(i, -0.625, 0, 0, 1, 0.1))
+
+    # Ocupamos clase Shape del archivo basic_shapes.py
+    return bs.Shape(F, range(len(F)))
 
 
 
@@ -368,7 +409,7 @@ if __name__ == "__main__":
     width = 600
     height = 600
 
-    window = glfw.create_window(width, height, "Drawing a quad via a EBO and classes", None, None)
+    window = glfw.create_window(width, height, "Dibujando un tablero de damas", None, None)
 
     if not window:
         glfw.terminate()
@@ -388,13 +429,18 @@ if __name__ == "__main__":
     pipeline.setupVAO(gpuTshape)
     gpuTshape.fillBuffers(Tshape.vertices, Tshape.indices, GL_STATIC_DRAW)
 
+    # Creating shapes on GPU memory for createQuads
     Qshape = createQuads()
     gpuQshape = GPUShape().initBuffers()
     pipeline.setupVAO(gpuQshape)
     gpuQshape.fillBuffers(Qshape.vertices, Qshape.indices, GL_STATIC_DRAW)
 
+    # Creating shapes on GPU memory for createDamas
+    Dshape = createDamas()
+    gpuDshape = GPUShape().initBuffers()
+    pipeline.setupVAO(gpuDshape)
+    gpuDshape.fillBuffers(Dshape.vertices, Dshape.indices, GL_STATIC_DRAW)
 
-    
     # Setting up the clear screen color
     glClearColor(0.15, 0.15, 0.15, 1.0)
 
@@ -413,8 +459,12 @@ if __name__ == "__main__":
 
         # Invoking the draw call
         glUseProgram(pipeline.shaderProgram)
+        # Dibujar fondo blanco del tablero
         pipeline.drawCall(gpuTshape)
+        # Dibujar cuadrados negros del tablero
         pipeline.drawCall(gpuQshape)
+        # Dibujar todas las damas en su posición incial
+        pipeline.drawCall(gpuDshape)
 
         # Once the render is done, buffers are swapped, showing only the complete scene.
         glfw.swap_buffers(window)
@@ -422,5 +472,7 @@ if __name__ == "__main__":
     # freeing GPU memory
     gpuTshape.clear()
     gpuQshape.clear()
+    gpuDshape.clear()
 
+    # Finalizar glfw
     glfw.terminate()
