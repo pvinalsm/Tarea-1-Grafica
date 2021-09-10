@@ -1,3 +1,7 @@
-- Tirar data/coord a otro archivo como arreglo, y luego solo importarlo en archivo principal (ver ejemplos de repositorio curso) 
-- Optimizar forma de escribir coordenadas con "for". si no lo logro, me conformo con lo de arriba
-- Dar perspectiva al tablero, es decir, no que sea mirado de arriba
+Mejorar mi primera versión del tablero de damas:
+- Optimizar forma de escribir coordenadas de Cuadrados con "for". Si no lo logro, me conformo con lo de abajo.
+- Tirar data/coord a otro archivo como arreglo, y luego solo importarlo en archivo principal (ver ejemplos de repositorio curso).
+
+Agregar detalles para bono y entretenimiento:
+- Darle sombreado/volumen aparente a las damas vistas desde arriba.
+- Dar perspectiva al tablero, es decir, no que sea mirado de arriba. 
