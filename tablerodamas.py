@@ -77,19 +77,20 @@ def crear_cuadrado(x,y,r,g,b,a):
 def createQuads():
     X = [-1, -0.5, 0.0, 0.5]
     Y = [0.75, 0.25, -0.25, -0.75]
-    F = []
+    vertexData = []
     for i in X:
         for j in Y:
-            F.extend(crear_cuadrado(i, j, 0.0, 0.0, 0.0, 0.25))
+            vertexData.extend(crear_cuadrado(i, j, 0.0, 0.0, 0.0, 0.25))
     for i in X:
         for j in Y:
-            F.extend(crear_cuadrado(j, i, 0.0, 0.0, 0.0, 0.25))
+            vertexData.extend(crear_cuadrado(j, i, 0.0, 0.0, 0.0, 0.25))
+    # Crear arreglo con indices
     indices = []
     a=0
     b=1
     c=2
     d=3
-    while len(indices) <= len(F):
+    while len(indices) <= len(vertexData):
         indices.append(a)
         indices.append(b)
         indices.append(c)
@@ -100,7 +101,8 @@ def createQuads():
         b=b+4
         c=c+4
         d=d+4
-    return bs.Shape(F, indices)
+    # Ocupamos clase Shape del archivo basic_shapes.py
+    return bs.Shape(vertexData, indices)
 
 
 # Función que crea un arreglo con los vértices de un circulo
