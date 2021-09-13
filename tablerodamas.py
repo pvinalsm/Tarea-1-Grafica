@@ -71,14 +71,14 @@ def createFrame():
          1, -0.98, 0,    0.823, 0.694, 0.498,
         -1, -0.98, 0,    0.823, 0.694, 0.498,
  
-         0.98, -1, 0,   0.823, 0.694, 0.498,
-         1, -1, 0,      0.823, 0.694, 0.498,
-         1, 1, 0,       0.823, 0.694, 0.498,
+         0.98, -1, 0,    0.823, 0.694, 0.498,
+         1, -1, 0,       0.823, 0.694, 0.498,
+         1, 1, 0,        0.823, 0.694, 0.498,
          0.98, 1, 0,     0.823, 0.694, 0.498,
 
         -1, 0.98, 0,     0.823, 0.694, 0.498,
          1, 0.98, 0,     0.823, 0.694, 0.498,
-         1, 1, 0,       0.823, 0.694, 0.498,
+         1, 1, 0,        0.823, 0.694, 0.498,
         -1, 1, 0,        0.823, 0.694, 0.498,
 
         -1, -1, 0,       0.823, 0.694, 0.498,
@@ -103,7 +103,8 @@ def createFrame():
     # Ocupamos clase Shape del archivo basic_shapes.py
     return bs.Shape(vertexData, indices)
 
-# Función para crear sombreado de marco
+
+# Función para crear borde café oscuro de marco
 def createSFrame():
     vertexData = np.array([
     #   positions              colors
@@ -146,7 +147,7 @@ def createSFrame():
 
 
 # Función que crea un arreglo con las coordenadas de un cuadrado en la posición (x,y,0) de color (r,g,b) y de lado a.
-# (Posición dada por el vértice 1, ed decir, el de abajo a la izquierda)
+# (Posición dada por el vértice 1, es decir, el de abajo a la izquierda)
 def crear_cuadrado(x,y,r,g,b,a):
     quad = []
     quad.extend([x, y, 0.0, r, g, b])
@@ -203,9 +204,10 @@ def crear_dama(x,y,r,g,b,radius):
                        0.0, r, g, b])
     return circle
 
+
 # Función que genera todas las damas en base a función "crear_dama"
-# Color elegido para las damas de arriba: rojo pantone
-# Color elegido para las damas de abajo: blanco oscurecido
+# Color elegido para las damas de arriba: gris muy oscuro
+# Color elegido para las damas de abajo: gris muy claro
 def createDamas():
     A1 = [-0.875, -0.375, 0.125, 0.625]
     A2 = [0.875, 0.375]
@@ -231,6 +233,7 @@ def createDamas():
     return bs.Shape(F, range(len(F)))
 
 
+# Función que crea sombras tipo borde a las damas
 def createSDamas():
     A1 = [-0.875, -0.375, 0.125, 0.625]
     A2 = [0.875, 0.375]
@@ -256,6 +259,7 @@ def createSDamas():
     return bs.Shape(F, range(len(F)))
 
 
+# Función que crea sombras tipo cuerpo a las damas
 def createS2Damas():
     A1 = [-0.875, -0.375, 0.125, 0.625]
     A2 = [0.875, 0.375]
@@ -374,9 +378,9 @@ if __name__ == "__main__":
         pipeline.drawCall(gpuDshape)
         # Dibujar marco/frame del tablero
         pipeline.drawCall(gpuFshape)
-        # Dibujar sombra marco/frame del tablero
+        # Dibujar borde marco/frame del tablero
         pipeline.drawCall(gpuSFshape)
-        # Dibujar sombra 2 marco/frame del tablero
+        # Dibujar sombras 2 de damas
         pipeline.drawCall(gpuS2Dshape)
 
         # Once the render is done, buffers are swapped, showing only the complete scene.
@@ -387,6 +391,7 @@ if __name__ == "__main__":
     gpuQshape.clear()
     gpuDshape.clear()
     gpuFshape.clear()
+    gpuSFshape.clear()
     gpuSDshape.clear()
     gpuS2Dshape.clear()
 
