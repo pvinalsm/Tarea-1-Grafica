@@ -41,14 +41,14 @@ def on_key(window, key, scancode, action, mods):
 
 
 
-# Función que genera un fondo cuadrado de color blanco
+# Función que genera un fondo cuadrado de color café claro
 def createFondo():
     vertexData = np.array([
     #   positions   colors
-        -1, -1, 0,  1.0, 1.0, 1.0,
-         1, -1, 0,  1.0, 1.0, 1.0,
-         1,  1, 0,  1.0, 1.0, 1.0,
-        -1,  1, 0,  1.0, 1.0, 1.0
+        -1, -1, 0,  0.823, 0.694, 0.498,
+         1, -1, 0,  0.823, 0.694, 0.498,
+         1,  1, 0,  0.823, 0.694, 0.498,
+        -1,  1, 0,  0.823, 0.694, 0.498
     # It is important to use 32 bits data
         ], dtype = np.float32)
     # Defining connections among vertices
@@ -56,6 +56,89 @@ def createFondo():
     indices = np.array([
          0, 1, 2,
          2, 3, 0
+         ], dtype= np.uint32)
+    size = len(indices)
+    # Ocupamos clase Shape del archivo basic_shapes.py
+    return bs.Shape(vertexData, indices)
+
+
+# Función para crear marco café claro
+def createFrame():
+    vertexData = np.array([
+    #   positions        colors
+        -1, -1, 0,       0.823, 0.694, 0.498,
+         1, -1, 0,       0.823, 0.694, 0.498,
+         1, -0.98, 0,    0.823, 0.694, 0.498,
+        -1, -0.98, 0,    0.823, 0.694, 0.498,
+ 
+         0.98, -1, 0,   0.823, 0.694, 0.498,
+         1, -1, 0,      0.823, 0.694, 0.498,
+         1, 1, 0,       0.823, 0.694, 0.498,
+         0.98, 1, 0,     0.823, 0.694, 0.498,
+
+        -1, 0.98, 0,     0.823, 0.694, 0.498,
+         1, 0.98, 0,     0.823, 0.694, 0.498,
+         1, 1, 0,       0.823, 0.694, 0.498,
+        -1, 1, 0,        0.823, 0.694, 0.498,
+
+        -1, -1, 0,       0.823, 0.694, 0.498,
+        -0.98, -1, 0,    0.823, 0.694, 0.498,
+        -0.98, 1, 0,     0.823, 0.694, 0.498,
+        -1, 1, 0,        0.823, 0.694, 0.498
+        ], dtype = np.float32)
+    indices = np.array([
+         0, 1, 2,
+         2, 3, 0,
+
+         4, 5, 6,
+         6, 7, 4,
+
+         8, 9, 10,
+         10, 11, 8,
+         
+         12, 13, 14,
+         14, 15, 12,
+         ], dtype= np.uint32)
+    size = len(indices)
+    # Ocupamos clase Shape del archivo basic_shapes.py
+    return bs.Shape(vertexData, indices)
+
+# Función para crear sombreado de marco
+def createSFrame():
+    vertexData = np.array([
+    #   positions              colors
+        -0.984, -0.984, 0,     0.5, 0.25, 0.0,
+         0.984, -0.984, 0,     0.5, 0.25, 0.0,
+         0.984, -0.98, 0,      0.5, 0.25, 0.0,
+        -0.984, -0.98, 0,      0.5, 0.25, 0.0,
+
+         0.98, -0.984, 0,      0.5, 0.25, 0.0,
+         0.984, -0.984, 0,     0.5, 0.25, 0.0,
+         0.984, 0.984, 0,      0.5, 0.25, 0.0,
+         0.98, 0.984, 0,       0.5, 0.25, 0.0,
+
+        -0.984, 0.98, 0,       0.5, 0.25, 0.0,
+         0.984, 0.98, 0,       0.5, 0.25, 0.0,
+         0.984, 0.984, 0,      0.5, 0.25, 0.0,
+        -0.984, 0.984, 0,      0.5, 0.25, 0.0,
+
+        -0.984, -0.984, 0,     0.5, 0.25, 0.0,
+        -0.98, -0.984, 0,      0.5, 0.25, 0.0,
+        -0.98, 0.984, 0,       0.5, 0.25, 0.0,
+        -0.984, 0.984, 0,      0.5, 0.25, 0.0
+        ], dtype = np.float32)
+    indices = np.array([
+         0, 1, 2,
+         2, 3, 0,
+
+         4, 5, 6,
+         6, 7, 4,
+
+         8, 9, 10,
+         10, 11, 8,
+         
+         12, 13, 14,
+         14, 15, 12,
          ], dtype= np.uint32)
     size = len(indices)
     # Ocupamos clase Shape del archivo basic_shapes.py
@@ -72,18 +155,20 @@ def crear_cuadrado(x,y,r,g,b,a):
     quad.extend([x, y+a, 0.0, r, g, b])
     return quad
 
-# Función que genera los 32 cuadrados negros del tablero en base a función "crear_cuadrado"
+
+# Función que genera los 32 cuadrados del tablero en base a función "crear_cuadrado"
 # Crea arreglo con los vértices e índices de los cuadrados
+# Color elegido: café oscuro 
 def createQuads():
     X = [-1, -0.5, 0.0, 0.5]
     Y = [0.75, 0.25, -0.25, -0.75]
     vertexData = []
     for i in X:
         for j in Y:
-            vertexData.extend(crear_cuadrado(i, j, 0.0, 0.0, 0.0, 0.25))
+            vertexData.extend(crear_cuadrado(i, j, 0.5, 0.25, 0.0, 0.25))
     for i in X:
         for j in Y:
-            vertexData.extend(crear_cuadrado(j, i, 0.0, 0.0, 0.0, 0.25))
+            vertexData.extend(crear_cuadrado(j, i, 0.5, 0.25, 0.0, 0.25))
     # Crear arreglo con indices
     indices = []
     a=0
@@ -119,6 +204,8 @@ def crear_dama(x,y,r,g,b,radius):
     return circle
 
 # Función que genera todas las damas en base a función "crear_dama"
+# Color elegido para las damas de arriba: rojo pantone
+# Color elegido para las damas de abajo: blanco oscurecido
 def createDamas():
     A1 = [-0.875, -0.375, 0.125, 0.625]
     A2 = [0.875, 0.375]
@@ -128,21 +215,70 @@ def createDamas():
     #para fila 1 y 3
     for i in A1:
         for j in A2:
-            F.extend(crear_dama(i, j, 1, 0, 0, 0.1))
+            F.extend(crear_dama(i, j, 0.8, 0.2, 0.2, 0.095))
     #para fila 2
     for i in A3:
-        F.extend(crear_dama(i, 0.625, 1, 0, 0, 0.1))
+        F.extend(crear_dama(i, 0.625, 0.8, 0.2, 0.2, 0.095))
     A4 = [-0.375, -0.875]
     #para fila 6 y 8
     for i in A3:
         for j in A4:
-            F.extend(crear_dama(i, j, 0, 0, 1, 0.1))
+            F.extend(crear_dama(i, j, 0.9, 0.9, 0.9, 0.095))
     #para fila 7
     for i in A1:
-        F.extend(crear_dama(i, -0.625, 0, 0, 1, 0.1))
+        F.extend(crear_dama(i, -0.625, 0.9, 0.9, 0.9, 0.095))
     # Ocupamos clase Shape del archivo basic_shapes.py
     return bs.Shape(F, range(len(F)))
 
+
+def createSDamas():
+    A1 = [-0.875, -0.375, 0.125, 0.625]
+    A2 = [0.875, 0.375]
+    A3 = [-0.625, -0.125, 0.375, 0.875]
+    A4 = [-0.375, -0.875]
+    F = []
+    #para fila 1 y 3
+    for i in A1:
+        for j in A2:
+            F.extend(crear_dama(i, j, 0.4, 0.1, 0.1, 0.1))
+    #para fila 2
+    for i in A3:
+        F.extend(crear_dama(i, 0.625, 0.4, 0.1, 0.1, 0.1))
+    A4 = [-0.375, -0.875]
+    #para fila 6 y 8
+    for i in A3:
+        for j in A4:
+            F.extend(crear_dama(i, j, 0.7, 0.7, 0.7, 0.1))
+    #para fila 7
+    for i in A1:
+        F.extend(crear_dama(i, -0.625, 0.7, 0.7, 0.7, 0.1))
+    # Ocupamos clase Shape del archivo basic_shapes.py
+    return bs.Shape(F, range(len(F)))
+
+
+def createS2Damas():
+    A1 = [-0.875, -0.375, 0.125, 0.625]
+    A2 = [0.875, 0.375]
+    A3 = [-0.625, -0.125, 0.375, 0.875]
+    A4 = [-0.375, -0.875]
+    F = []
+    #para fila 1 y 3
+    for i in A1:
+        for j in A2:
+            F.extend(crear_dama(i, j, 0.5, 0.125, 0.125, 0.08))
+    #para fila 2
+    for i in A3:
+        F.extend(crear_dama(i, 0.625, 0.5, 0.125, 0.125, 0.08))
+    A4 = [-0.375, -0.875]
+    #para fila 6 y 8
+    for i in A3:
+        for j in A4:
+            F.extend(crear_dama(i, j, 0.7, 0.7, 0.7, 0.08))
+    #para fila 7
+    for i in A1:
+        F.extend(crear_dama(i, -0.625, 0.7, 0.7, 0.7, 0.08))
+    # Ocupamos clase Shape del archivo basic_shapes.py
+    return bs.Shape(F, range(len(F)))
 
 
 if __name__ == "__main__":
@@ -186,6 +322,30 @@ if __name__ == "__main__":
     pipeline.setupVAO(gpuDshape)
     gpuDshape.fillBuffers(Dshape.vertices, Dshape.indices, GL_STATIC_DRAW)
 
+    # Creating shapes on GPU memory for createFrame
+    Fshape = createFrame()
+    gpuFshape = GPUShape().initBuffers()
+    pipeline.setupVAO(gpuFshape)
+    gpuFshape.fillBuffers(Fshape.vertices, Fshape.indices, GL_STATIC_DRAW)
+
+    # Creating shapes on GPU memory for createSFrame
+    SFshape = createSFrame()
+    gpuSFshape = GPUShape().initBuffers()
+    pipeline.setupVAO(gpuSFshape)
+    gpuSFshape.fillBuffers(SFshape.vertices, SFshape.indices, GL_STATIC_DRAW)
+
+    #Creating shapes on GPU memory for createSDamas
+    SDshape = createSDamas()
+    gpuSDshape = GPUShape().initBuffers()
+    pipeline.setupVAO(gpuSDshape)
+    gpuSDshape.fillBuffers(SDshape.vertices, SDshape.indices, GL_STATIC_DRAW)
+
+    #Creating shapes on GPU memory for createS2Damas
+    S2Dshape = createS2Damas()
+    gpuS2Dshape = GPUShape().initBuffers()
+    pipeline.setupVAO(gpuS2Dshape)
+    gpuS2Dshape.fillBuffers(S2Dshape.vertices, S2Dshape.indices, GL_STATIC_DRAW)
+
     # Setting up the clear screen color
     glClearColor(0.15, 0.15, 0.15, 1.0)
 
@@ -204,12 +364,20 @@ if __name__ == "__main__":
 
         # Invoking the draw call
         glUseProgram(pipeline.shaderProgram)
-        # Dibujar fondo blanco del tablero
+        # Dibujar fondo café claro del tablero
         pipeline.drawCall(gpuTshape)
-        # Dibujar cuadrados negros del tablero
+        # Dibujar cuadrados cafe oscuro del tablero
         pipeline.drawCall(gpuQshape)
+        # Dibujar sombras de damas
+        pipeline.drawCall(gpuSDshape)
         # Dibujar todas las damas en su posición incial
         pipeline.drawCall(gpuDshape)
+        # Dibujar marco/frame del tablero
+        pipeline.drawCall(gpuFshape)
+        # Dibujar sombra marco/frame del tablero
+        pipeline.drawCall(gpuSFshape)
+        # Dibujar sombra 2 marco/frame del tablero
+        pipeline.drawCall(gpuS2Dshape)
 
         # Once the render is done, buffers are swapped, showing only the complete scene.
         glfw.swap_buffers(window)
@@ -218,6 +386,10 @@ if __name__ == "__main__":
     gpuTshape.clear()
     gpuQshape.clear()
     gpuDshape.clear()
+    gpuFshape.clear()
+    gpuSDshape.clear()
+    gpuS2Dshape.clear()
+
 
     # Finalizar glfw
     glfw.terminate()
