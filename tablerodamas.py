@@ -215,10 +215,10 @@ def createDamas():
     #para fila 1 y 3
     for i in A1:
         for j in A2:
-            F.extend(crear_dama(i, j, 0.8, 0.2, 0.2, 0.095))
+            F.extend(crear_dama(i, j, 0.3, 0.3, 0.3, 0.095))
     #para fila 2
     for i in A3:
-        F.extend(crear_dama(i, 0.625, 0.8, 0.2, 0.2, 0.095))
+        F.extend(crear_dama(i, 0.625, 0.3, 0.3, 0.3, 0.095))
     A4 = [-0.375, -0.875]
     #para fila 6 y 8
     for i in A3:
@@ -240,10 +240,10 @@ def createSDamas():
     #para fila 1 y 3
     for i in A1:
         for j in A2:
-            F.extend(crear_dama(i, j, 0.4, 0.1, 0.1, 0.1))
+            F.extend(crear_dama(i, j, 0.15, 0.15, 0.15, 0.1))
     #para fila 2
     for i in A3:
-        F.extend(crear_dama(i, 0.625, 0.4, 0.1, 0.1, 0.1))
+        F.extend(crear_dama(i, 0.625, 0.15, 0.15, 0.15, 0.1))
     A4 = [-0.375, -0.875]
     #para fila 6 y 8
     for i in A3:
@@ -265,10 +265,10 @@ def createS2Damas():
     #para fila 1 y 3
     for i in A1:
         for j in A2:
-            F.extend(crear_dama(i, j, 0.5, 0.125, 0.125, 0.08))
+            F.extend(crear_dama(i, j, 0.15, 0.15, 0.15, 0.08))
     #para fila 2
     for i in A3:
-        F.extend(crear_dama(i, 0.625, 0.5, 0.125, 0.125, 0.08))
+        F.extend(crear_dama(i, 0.625, 0.15, 0.15, 0.15, 0.08))
     A4 = [-0.375, -0.875]
     #para fila 6 y 8
     for i in A3:
