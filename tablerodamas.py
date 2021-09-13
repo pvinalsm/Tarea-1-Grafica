@@ -4,9 +4,7 @@
 # Import de todo lo que se utilizará
 import glfw
 from OpenGL.GL import *
-import OpenGL.GL.shaders
 import numpy as np
-import numpy
 import grafica.easy_shaders as es
 import grafica.basic_shapes as bs
 from grafica.gpu_shape import GPUShape, SIZE_IN_BYTES
@@ -196,11 +194,11 @@ def crear_dama(x,y,r,g,b,radius):
     circle = []
     for angle in range(0,360,10):
         circle.extend([x, y, 0.0, r, g, b])
-        circle.extend([x+numpy.cos(numpy.radians(angle))*radius, 
-                       y+numpy.sin(numpy.radians(angle))*radius, 
+        circle.extend([x+np.cos(np.radians(angle))*radius, 
+                       y+np.sin(np.radians(angle))*radius, 
                        0.0, r, g, b])
-        circle.extend([x+numpy.cos(numpy.radians(angle+10))*radius, 
-                       y+numpy.sin(numpy.radians(angle+10))*radius, 
+        circle.extend([x+np.cos(np.radians(angle+10))*radius, 
+                       y+np.sin(np.radians(angle+10))*radius, 
                        0.0, r, g, b])
     return circle
 
